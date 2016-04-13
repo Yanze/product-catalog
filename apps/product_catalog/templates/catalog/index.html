@@ -1,0 +1,65 @@
+{% extends 'catalog/base.html' %} {% block content %}
+<!-- <script>
+  $(funtion(){
+    $("delete.product").onclick(function(){
+
+      if(confirm("sure?") == false){
+        return false;
+      }
+
+      $.ajax({
+        type: "POST",
+        url: url
+      })
+    })
+
+    return false;
+  })
+</script> -->
+
+<h1>Product Catalog</h1>
+
+<h3>Trader's Store</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <td>Brand</td>
+      <td>Product Name</td>
+      <td>Price</td>
+      <td>Date Added</td>
+      <td>Actions</td>
+      <td></td>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {% for product in object_list %}
+    <tr>
+      <td>{{product.brand}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.price}}</td>
+      <td>{{product.description}}</td>
+      <td>{{product.added}}</td>
+      <td><a href="{% url 'update' product.id %}">Update</a></td>
+
+      <td>
+        <form method="POST" action="{% url 'delete' product.id %}">
+          {% csrf_token %}
+          <input type="submit" value="DELETE" onclick="return confirm('you sure?');">
+        </form>
+      </td>
+
+      <!-- <td>
+        <button id="delete-product">Detele3</button>
+      </td> -->
+
+      <td><a href="{% url 'delete' product.id %}">Delete2</a></td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+
+<a class="btn btn-success" href="show">Add New</a> {% endblock %}
